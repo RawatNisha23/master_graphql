@@ -1,8 +1,8 @@
 """
-URL configuration for ace_report project.
+URL configuration for myproject project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/4.2/topics/http/urls/
+    https://docs.djangoproject.com/en/5.1/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -14,15 +14,20 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path,include
 
+
+
+from django.contrib import admin
+from django.urls import path
+from graphene_django.views import GraphQLView
+from django.views.decorators.csrf import csrf_exempt
+# from django_graphql_auth.views import ObtainJSONWebToken
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('ace_report.apps.risk_profile_app.urls')),
-    path('', include('ace_report.apps.client_master_app.urls')),
-    path('', include('ace_report.apps.login_logout_app.urls')),
-   
- 
+    path("graphql/", csrf_exempt(GraphQLView.as_view(graphiql=True))),
+    # path("token/", ObtainJSONWebToken.as_view(), name='auth_token'),  # For authentication
 ]
+
+
+
